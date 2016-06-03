@@ -6,8 +6,12 @@
 var loopback = require('../../');
 var app = loopback();
 var db = app.dataSource('db', { connector: loopback.Memory });
-var Color = app.model('color', { dataSource: 'db', options: { trackChanges: true }});
-var Color2 = app.model('color2', { dataSource: 'db', options: { trackChanges: true }});
+var Color = app.model(
+  app.registry.createModel('color', {}, { trackChanges: true }),
+  { dataSource: 'db' });
+var Color2 = app.model(
+  app.registry.createModel('color2', {}, { trackChanges: true }),
+  { dataSource: 'db' });
 var target = Color2;
 var source = Color;
 var SPEED = process.env.SPEED || 100;

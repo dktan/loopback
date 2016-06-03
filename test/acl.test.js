@@ -399,10 +399,13 @@ describe('access check', function() {
     app.use(loopback.rest());
     app.enableAuth();
     app.dataSource('test', { connector: 'memory' });
+    var MyTestModel = app.registry.createModel('MyTestModel');
+    // attach model to app and datasource
+    app.model(MyTestModel, { dataSource: 'test' });
   });
 
   it('should occur before other remote hooks', function(done) {
-    var MyTestModel = app.model('MyTestModel', { base: 'PersistedModel', dataSource: 'test' });
+    var MyTestModel = app.models.MyTestModel;
     var checkAccessCalled = false;
     var beforeHookCalled = false;
 

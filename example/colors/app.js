@@ -12,9 +12,9 @@ var schema = {
   name: String,
 };
 
-var Color = app.model('color', schema);
-
+var Color = app.registry.createModel('color', schema);
 app.dataSource('db', { adapter: 'memory' }).attach(Color);
+app.model(Color);
 
 Color.create({ name: 'red' });
 Color.create({ name: 'green' });

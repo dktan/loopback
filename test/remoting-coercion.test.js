@@ -12,7 +12,12 @@ describe('remoting coercion', function() {
     var app = loopback();
     app.use(loopback.rest());
 
-    var TestModel = app.model('TestModel', { base: 'Model', dataSource: null, public: true });
+    var TestModel = app.registry.createModel('TestModel',
+      {},
+      { base: 'Model', public: true }
+    );
+    app.model(TestModel);
+
     TestModel.test = function(inst, cb) {
       called = true;
       assert(inst instanceof TestModel);
